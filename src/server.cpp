@@ -6,6 +6,9 @@
 #include <memory>
 #include <unistd.h>
 #include <cstring>
+#include <sstream>
+#include <string>
+#include <vector>
 
 Server::Server(int port) : port(port), server_fd(-1) {};
 Server::~Server()
@@ -87,7 +90,84 @@ void Server::handleClient(int client_fd)
                                                                         "\r\n" +
                                 html_content;
 
+    std::cout << "Parsing request " << std::endl;
+    HttpRequest parsedRequest = parseRawRequest(buffer);
+
     send(client_fd, http_response.c_str(), http_response.length(), 0);
 
     close(client_fd);
+}
+
+HttpRequest Server::parseRawRequest(const std::string &request)
+{
+    HttpRequest http_request;
+
+    std::vector<std::string> lines;
+    std::string line;
+    std::istringstream stream(request);
+
+    std::cout << "Raw request:  " << request << std::endl;
+
+    while (std::getline(stream, line))
+    {
+        if (!line.empty() && line.back() == '\r')
+        {
+            line.pop_back();
+        }
+        std::cout << "Line from getLine:  " << line << std::endl;
+        lines.push_back(line);
+    }
+
+    if (lines.empty())
+    {
+        return http_request;
+    }
+    std::cout << "Lines[0]   " << lines[0] << std::endl;
+    std::istringstream request_line(lines[0]);
+    request_line >> http_request.method >> http_request.path >> http_request.version;
+
+    // Extract Headers
+    for (size_t i = 1; i < lines.size(); i++) // why is this size_t??
+    {
+        std::string line = lines[i];
+        if (line.empty())
+        {
+            break;
+        }
+
+        std::cout << "Processing line:  " << lines[i] << std::endl;
+        size_t colon_position = line.find(":");
+
+        if (colon_position != std::string::npos)
+        {
+            std::cout << "Colon position:  " << colon_position << std::endl;
+            std::string key = line.substr(0, colon_position);
+            std::string value = line.substr(colon_position + 1);
+
+            while (!value.empty() && value.front() == ' ')
+            {
+                value.erase(0, 1);
+            }
+
+            while (!value.empty() && value.back() == ' ')
+            {
+                value.pop_back();
+            }
+
+            http_request.headers[key] = value;
+        }
+    }
+
+    std::cout << "Parsed method: " << http_request.method << std::endl;
+    std::cout << "Parsed path: " << http_request.path << std::endl;
+    std::cout << "Parsed version: " << http_request.version << std::endl;
+    std::cout << "Parsed headers: " << std::endl;
+    for (const auto &header : http_request.headers)
+    {
+        std::cout << header.first << ": " << header.second << std::endl;
+    }
+
+    // Parse the body of the request here
+
+    return http_request;
 }

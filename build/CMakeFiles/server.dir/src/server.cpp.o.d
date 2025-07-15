@@ -151,6 +151,14 @@ CMakeFiles/server.dir/src/server.cpp.o: \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
  /home/samuel/repositories/cpp-server/include/server.h \
+ /usr/include/c++/13/unordered_map \
+ /usr/include/c++/13/bits/unordered_map.h \
+ /usr/include/c++/13/bits/hashtable.h \
+ /usr/include/c++/13/bits/hashtable_policy.h \
+ /usr/include/c++/13/ext/aligned_buffer.h \
+ /usr/include/c++/13/bits/enable_special_members.h \
+ /usr/include/c++/13/bits/node_handle.h \
+ /usr/include/c++/13/bits/erase_if.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
  /usr/include/x86_64-linux-gnu/bits/socket.h \
@@ -180,7 +188,6 @@ CMakeFiles/server.dir/src/server.cpp.o: \
  /usr/include/c++/13/bits/shared_ptr.h \
  /usr/include/c++/13/bits/shared_ptr_base.h \
  /usr/include/c++/13/bits/allocated_ptr.h \
- /usr/include/c++/13/ext/aligned_buffer.h \
  /usr/include/c++/13/ext/concurrence.h \
  /usr/include/c++/13/bits/shared_ptr_atomic.h \
  /usr/include/c++/13/bits/atomic_base.h \
@@ -195,4 +202,8 @@ CMakeFiles/server.dir/src/server.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h /usr/include/c++/13/cstring \
- /usr/include/string.h /usr/include/strings.h
+ /usr/include/string.h /usr/include/strings.h /usr/include/c++/13/sstream \
+ /usr/include/c++/13/bits/sstream.tcc /usr/include/c++/13/vector \
+ /usr/include/c++/13/bits/stl_vector.h \
+ /usr/include/c++/13/bits/stl_bvector.h \
+ /usr/include/c++/13/bits/vector.tcc
